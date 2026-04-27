@@ -1,0 +1,17 @@
+{
+  "name": "dementia-research-daily",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dementia Research Daily Report Generator",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "fetch": "node fetch_papers.js",
+    "report": "node generate_report.js",
+    "index": "node generate_index.js",
+    "build": "node fetch_papers.js && node generate_report.js && node generate_index.js"
+  },
+  "dependencies": {}
+}
