@@ -19,7 +19,7 @@ const API_BASE =
 const FALLBACK_MODELS = ["GLM-5-Turbo", "GLM-4.7", "GLM-4.7-Flash"];
 const MAX_TOKENS = 50000;
 const TIMEOUT_MS = 660000;
-const MAX_RETRIES = 3;
+const MAX_RETRIES = 1;
 
 const SYSTEM_PROMPT = `你是失智症研究的資深摘要與分類分析師。你的任務是：
 1. 從提供的論文摘要中，擷取出最具有臨床相關性與新穎性的內容
