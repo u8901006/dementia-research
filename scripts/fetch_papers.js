@@ -4,13 +4,12 @@
  * Uses search templates from dementia_research_pubmed_toolkit.md
  */
 
-import { execSync } from "child_process";
 import { writeFileSync, readFileSync, existsSync } from "fs";
 
 const PUBMED_SEARCH =
   "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
-const PUBMED_FETCH =
-  "https://eutils.ncbi.nlm.nih.gov/entrez/efetch.fcgi";
+const PUBMED_SUMMARY =
+  "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi";
 const HEADERS = {
   "User-Agent": "DementiaResearchBot/1.0 (research aggregator)",
 };
@@ -115,130 +114,49 @@ async function searchPapers(query, retmax = 30) {
 
 async function fetchDetails(pmids) {
   if (!pmids.length) return [];
-  console.error(`[DEBUG] PMIDs sample: ${JSON.stringify(pmids.slice(0, 3))}`);
-  console.error(`[DEBUG] First PMID type: ${typeof pmids[0]}, value: "${pmids[0]}"`);
   const allPapers = [];
-  const batchSize = 10;
+  const batchSize = 30;
   for (let i = 0; i < pmids.length; i += batchSize) {
     const batch = pmids.slice(i, i + batchSize);
     const ids = batch.join(",");
-    const url = `${PUBMED_FETCH}?db=pubmed&id=${encodeURIComponent(ids)}&retmode=xml&tool=${NCBI_PARAMS.tool}&email=${NCBI_PARAMS.email}`;
+    const url = `${PUBMED_SUMMARY}?db=pubmed&id=${ids}&retmode=json`;
     try {
       console.error(
-        `[INFO] Fetching batch ${Math.floor(i / batchSize) + 1} (${batch.length} PMIDs): ${ids.slice(0, 60)}...`,
+        `[INFO] Fetching batch ${Math.floor(i / batchSize) + 1} (${batch.length} PMIDs)`,
       );
-      const resp = await fetch(url, {
-        method: "GET",
-        headers: HEADERS,
-      });
+      const resp = await fetch(url, { headers: HEADERS });
       if (!resp.ok) {
         const errText = await resp.text();
         console.error(
-          `[ERROR] PubMed efetch HTTP ${resp.status}: ${errText.slice(0, 500)}`,
+          `[ERROR] PubMed esummary HTTP ${resp.status}: ${errText.slice(0, 300)}`,
         );
         continue;
       }
-      const xml = await resp.text();
-      console.error(`[DEBUG] Response length: ${xml.length}, starts with: ${xml.slice(0, 100)}`);
-      const papers = parseXML(xml);
-      allPapers.push(...papers);
-      console.error(`  Got ${papers.length} papers from batch`);
+      const data = await resp.json();
+      const result = data.result || {};
+      const uids = result.uids || [];
+      for (const uid of uids) {
+        const article = result[uid];
+        if (!article || article.error) continue;
+        allPapers.push({
+          pmid: uid,
+          title: article.title || "",
+          journal: article.fulljournalname || article.source || "",
+          date: article.pubdate || article.epubdate || "",
+          abstract: "",
+          url: `https://pubmed.ncbi.nlm.nih.gov/${uid}/`,
+          keywords: article.keywords || [],
+          authors: (article.authors || []).slice(0, 5).map((a) => a.name),
+          doi: article.elocationid || "",
+        });
+      }
+      console.error(`  Got ${uids.length} papers from batch`);
     } catch (e) {
-      console.error(`[ERROR] PubMed fetch batch failed: ${e.message}`);
+      console.error(`[ERROR] PubMed esummary batch failed: ${e.message}`);
     }
     if (i + batchSize < pmids.length) await sleep(400);
   }
   return allPapers;
-}
-
-function parseXML(xml) {
-  const papers = [];
-  const articleRegex = /<PubmedArticle>([\s\S]*?)<\/PubmedArticle>/g;
-  let match;
-  while ((match = articleRegex.exec(xml)) !== null) {
-    const block = match[1];
-    const title = extractTag(block, "ArticleTitle");
-    const journal = extractTag(block, "<Title>");
-    const pmid = extractTag(block, "<PMID");
-    const abstract = extractAbstract(block);
-    const pubDate = extractPubDate(block);
-    const keywords = extractKeywords(block);
-    const url = pmid
-      ? `https://pubmed.ncbi.nlm.nih.gov/${pmid}/`
-      : "";
-
-    if (title) {
-      papers.push({
-        pmid,
-        title: cleanText(title),
-        journal: cleanText(journal),
-        date: pubDate,
-        abstract: abstract.slice(0, 2000),
-        url,
-        keywords,
-      });
-    }
-  }
-  return papers;
-}
-
-function extractTag(block, tag) {
-  const openTag =
-    tag.startsWith("<") && !tag.endsWith(">") ? tag : `<${tag}>`;
-  const closeTag = openTag.includes(" ")
-    ? `</${openTag.replace(/<(\w+).*/, "$1")}>`
-    : `</${openTag.slice(1)}`;
-  const regex = new RegExp(
-    `${escapeRegex(openTag)}([\\s\\S]*?)${escapeRegex(closeTag)}`,
-  );
-  const m = block.match(regex);
-  return m ? m[1].trim() : "";
-}
-
-function extractAbstract(block) {
-  const parts = [];
-  const regex =
-    /<AbstractText[^>]*Label="([^"]*)"[^>]*>([\s\S]*?)<\/AbstractText>/g;
-  let m;
-  while ((m = regex.exec(block)) !== null) {
-    const label = m[1];
-    const text = m[2].replace(/<[^>]+>/g, "").trim();
-    if (text) parts.push(label ? `${label}: ${text}` : text);
-  }
-  if (parts.length) return parts.join(" ");
-  const simpleRegex =
-    /<AbstractText[^>]*>([\s\S]*?)<\/AbstractText>/g;
-  while ((m = simpleRegex.exec(block)) !== null) {
-    const text = m[1].replace(/<[^>]+>/g, "").trim();
-    if (text) parts.push(text);
-  }
-  return parts.join(" ");
-}
-
-function extractPubDate(block) {
-  const y = extractTag(block, "<Year>");
-  const m = extractTag(block, "<Month>");
-  const d = extractTag(block, "<Day>");
-  return [y, m, d].filter(Boolean).join(" ");
-}
-
-function extractKeywords(block) {
-  const kws = [];
-  const regex = /<Keyword>([\s\S]*?)<\/Keyword>/g;
-  let m;
-  while ((m = regex.exec(block)) !== null) {
-    const t = m[1].trim();
-    if (t) kws.push(t);
-  }
-  return kws;
-}
-
-function cleanText(s) {
-  return s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
-}
-
-function escapeRegex(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
 function loadAlreadySummarized() {
@@ -296,16 +214,7 @@ async function main() {
 
   let papers = [];
   if (pmidsToFetch.length > 0) {
-    const batchSize = 50;
-    for (let i = 0; i < pmidsToFetch.length; i += batchSize) {
-      const batch = pmidsToFetch.slice(i, i + batchSize);
-      console.error(
-        `[INFO] Fetching details batch ${Math.floor(i / batchSize) + 1}...`,
-      );
-      const batchPapers = await fetchDetails(batch);
-      papers.push(...batchPapers);
-      if (i + batchSize < pmidsToFetch.length) await sleep(400);
-    }
+    papers = await fetchDetails(pmidsToFetch);
   }
 
   console.error(`[INFO] Fetched details for ${papers.length} papers`);
