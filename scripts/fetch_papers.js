@@ -14,6 +14,10 @@ const PUBMED_FETCH =
 const HEADERS = {
   "User-Agent": "DementiaResearchBot/1.0 (research aggregator)",
 };
+const NCBI_PARAMS = {
+  tool: "DementiaResearchBot",
+  email: "u8901006@users.noreply.github.com",
+};
 
 const SEARCH_QUERIES = [
   {
@@ -111,15 +115,42 @@ async function searchPapers(query, retmax = 30) {
 
 async function fetchDetails(pmids) {
   if (!pmids.length) return [];
-  const ids = pmids.join(",");
-  const url = `${PUBMED_FETCH}?db=pubmed&id=${ids}&retmode=xml`;
-  try {
-    const xml = await fetchText(url);
-    return parseXML(xml);
-  } catch (e) {
-    console.error(`[ERROR] PubMed fetch failed: ${e.message}`);
-    return [];
+  const allPapers = [];
+  const batchSize = 20;
+  for (let i = 0; i < pmids.length; i += batchSize) {
+    const batch = pmids.slice(i, i + batchSize);
+    const body = new URLSearchParams();
+    body.set("db", "pubmed");
+    body.set("id", batch.join(","));
+    body.set("retmode", "xml");
+    body.set("tool", NCBI_PARAMS.tool);
+    body.set("email", NCBI_PARAMS.email);
+    try {
+      console.error(
+        `[INFO] Fetching batch ${Math.floor(i / batchSize) + 1} (${batch.length} PMIDs)...`,
+      );
+      const resp = await fetch(PUBMED_FETCH, {
+        method: "POST",
+        headers: { ...HEADERS, "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+      if (!resp.ok) {
+        const errText = await resp.text();
+        console.error(
+          `[ERROR] PubMed efetch HTTP ${resp.status}: ${errText.slice(0, 300)}`,
+        );
+        continue;
+      }
+      const xml = await resp.text();
+      const papers = parseXML(xml);
+      allPapers.push(...papers);
+      console.error(`  Got ${papers.length} papers from batch`);
+    } catch (e) {
+      console.error(`[ERROR] PubMed fetch batch failed: ${e.message}`);
+    }
+    if (i + batchSize < pmids.length) await sleep(400);
   }
+  return allPapers;
 }
 
 function parseXML(xml) {
