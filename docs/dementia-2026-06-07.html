@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dementia Research &middot; 失智症研究文獻日報 &middot; 2026年6月7日</title>
+<meta name="description" content="2026年6月7日 失智症研究文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 12px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 70px; font-size: 11px; } .clinic-links { gap: 8px; } .clinic-link { padding: 14px 18px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🧠</div>
+    <div class="header-text">
+      <h1>Dementia Research &middot; 失智症研究文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年6月7日</span>
+        <span class="badge badge-count">📊 33 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">今日失智症文獻聚焦於可修改風險因子（焦慮、失眠、腹部肥胖、飲食型態）與失智症預防的關聯性，並在影像鑑別診斷（AD vs. SNAP）、認知評估工具公平性及照護模式對認知衰退的影響等方面有重要臨床進展。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">😰</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>焦慮症與失眠對阿茲海默症及相關失智症診斷風險的合併效應</h3>
+          <p class="journal-source">The journal of prevention of Alzheimer's disease &middot; Combined effect of anxiety disorder and insomnia on the risk of incident ADRD diagnosis.</p>
+          <p>焦慮症合併失眠會顯著增加阿茲海默症及相關失智症（ADRD）的發生風險，且合併效應大於單一因子，強調精神共病在失智症預防中的關鍵角色。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">無失智症之成年人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">焦慮症合併失眠（暴露因子）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無焦慮症且無失眠者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">新發ADRD診斷風險</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">預防</span><span class="tag">睡眠</span><span class="tag">阿茲海默症</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250492/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🥗</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>生活型態與飲食模式與臨床前阿茲海默症的關聯：La Rioja 隊列研究</h3>
+          <p class="journal-source">European journal of nutrition &middot; Exploring the associations between lifestyle and dietary patterns with preclinical alzheimer's disease: findings from La Rioja cohort study.</p>
+          <p>特定生活型態與飲食模式與臨床前阿茲海默症生物標記呈現顯著關聯，支持透過飲食介入作為失智症初級預防策略。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">La Rioja 隊列研究中的社區中老年受試者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">生活型態與飲食模式（暴露因子）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同飲食與生活型態模式間之比較</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">臨床前阿茲海默症生物標記陽性率</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">預防</span><span class="tag">阿茲海默症</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250017/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">📏</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>中年期腹部肥胖與阿茲海默症影像標記的關聯：跨性別與種族分析</h3>
+          <p class="journal-source">Journal of Alzheimer's disease : JAD &middot; Abdominal adiposity and Alzheimer's disease imaging markers across sex and race at midlife.</p>
+          <p>中年期腹部肥胖與阿茲海默症影像標記相關，且此關聯存在性別與種族差異，突顯中年期代謝控制對失智症預防的重要性。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">中年期成年人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">腹部肥胖（暴露因子）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">腹部脂肪量正常者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">阿茲海默症神經影像標記（如淀粉樣蛋白沉積、腦萎縮等）</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">預防</span><span class="tag">阿茲海默症</span><span class="tag">神經影像</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249678/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">📝</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>評估自動化與紙筆認知評估工具在英國代表性不足群體中的實用性</h3>
+          <p class="journal-source">International journal of geriatric psychiatry &middot; Assessing the Utility of Automated and Pen-And-Paper Cognitive Assessment Tools for Underrepresented Groups in the UK.</p>
+          <p>自動化與紙筆認知評估工具在代表性不足族群中的實用性存在差異，呼籲發展更具文化公平性的失智症篩檢工具。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">英國代表性不足族群之中老年人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">自動化認知評估工具</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">傳統紙筆認知評估工具</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">工具的實用性與適用性指標</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">認知評估</span><span class="tag">失智症篩檢</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250267/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">🏠</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>照顧模式與中老年日常生活活動受限者的認知衰退：CHARLS 隊列研究</h3>
+          <p class="journal-source">Dementia and geriatric cognitive disorders &middot; Caregiving Models and Cognitive Decline in Middle-aged and Older Adults with Limitations in Activities of Daily Living: A CHARLS Cohort Study (2011-2020).</p>
+          <p>不同照顧模式對日常生活活動受限之中老年人的認知衰退速度有顯著影響，為長期照護體系設計提供重要實證。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">日常生活活動受限之中老年中國人（CHARLS 隊列）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">不同照顧模式（如家庭照顧、機構照顧等）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">各照顧模式間之比較</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">認知功能衰退速度</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">失智症照護</span><span class="tag">照顧者</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250237/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#6</span>
+            <span class="emoji-icon">🤕</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>社區失智症患者疼痛與神經精神症狀：橫斷面雙人研究</h3>
+          <p class="journal-source">BMC geriatrics &middot; Pain and neuropsychiatric symptoms in community-dwelling people living with dementia: a cross-sectional dyadic study.</p>
+          <p>社區居住失智症患者的疼痛與神經精神症狀（BPSD）之間存在顯著關聯，強調疼痛評估與管理在BPSD處置中的核心地位。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">社區居住之失智症患者及其照顧者（雙人配對）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">疼痛（暴露因子）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">無疼痛或輕微疼痛之失智症患者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">神經精神症狀（BPSD）的嚴重程度</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">BPSD</span><span class="tag">失智症照護</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42251272/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#7</span>
+            <span class="emoji-icon">💊</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>第二代抗組織胺不會改變第二型發炎疾病患者的失智症風險：目標試驗模擬</h3>
+          <p class="journal-source">The journal of allergy and clinical immunology. In practice &middot; Second-generation H1-antihistamines do not alter dementia risk in type 2 inflammatory diseases: A target trial emulation using real-world data.</p>
+          <p>使用真實世界資料進行目標試驗模擬，確認第二代抗組織胺不會增加或降低失智症風險，安撫了長期用藥的安全性疑慮。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">患有第二型發炎疾病之成年人</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">第二代抗組織胺長期使用</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">未使用或短期使用第二代抗組織胺者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">失智症發生風險</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">藥物治療</span><span class="tag">預防</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250644/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#8</span>
+            <span class="emoji-icon">🧠</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>阿茲海默症與疑似非阿茲海默症病理生理學的海馬迴縱軸差異性萎縮</h3>
+          <p class="journal-source">Neuroradiology &middot; Differential atrophy along the longitudinal axis of the hippocampus in Alzheimer's disease and suspected non-Alzheimer's disease pathophysiology (SNAP).</p>
+          <p>阿茲海默症與SNAP患者在海馬迴不同區段呈現差異性萎縮模式，有助於透過神經影像提升非典型失智症的鑑別診斷能力。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">阿茲海默症患者與SNAP患者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">海馬迴分段體積分析（神經影像評估）</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">AD 與 SNAP 兩組間之海馬萎縮模式比較</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">海馬迴縱軸各區段的萎縮差異</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">神經影像</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249984/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🦠</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>金黃色葡萄球菌血流感染與重症成人七日內新發譫妄的關聯</h3>
+          <p class="journal-source">BMC infectious diseases</p>
+          <p>重症患者發生金黃色葡萄球菌血流感染後，七日內新發譫妄的風險顯著升高。</p>
+          <div class="card-footer">
+            <span class="tag">老年精神醫學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42251249/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌱</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>膳食植物雌激素改善卵巢毒性物質誘發的神經毒性：機制與代謝見解</h3>
+          <p class="journal-source">Naunyn-Schmiedeberg's archives of pharmacology</p>
+          <p>膳食植物雌激素能透過調節代謝路徑，減輕卵巢毒性物質引發的神經損傷。</p>
+          <div class="card-footer">
+            <span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249968/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌲</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>日本扁柏香氣透過降低壓力荷爾蒙改善壓力誘發的記憶障礙</h3>
+          <p class="journal-source">Natural product research</p>
+          <p>日本扁柏精油香氣可透過降低壓力荷爾蒙來改善壓力導致的記憶力減退。</p>
+          <div class="card-footer">
+            <span class="tag">非藥物治療</span><span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249892/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>金屬蛋白酶在阿茲海默症與輕度認知障礙患者中的系統性文獻回顧與薈萃分析</h3>
+          <p class="journal-source">Journal of Alzheimer's disease : JAD</p>
+          <p>薈萃分析顯示金屬蛋白酶在阿茲海默症與輕度認知障礙患者中表現異常，具有作為潛在生物標記的價值。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">輕度認知障礙</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249679/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔗</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>藍斑核去甲腎上腺素系統完整性與阿茲海默症譜系認知表現的縱向探討</h3>
+          <p class="journal-source">Journal of cerebral blood flow and metabolism : official journal of the International Society of Cerebral Blood Flow and Metabolism</p>
+          <p>縱向研究顯示藍斑核去甲腎上腺素系統的完整性隨阿茲海默症譜系進展而下降，且與認知表現密切相關。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">神經影像</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249565/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🐭</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>SAFit2 抑制 FKBP51 調節 PS19 小鼠的濤蛋白病理與認知缺陷</h3>
+          <p class="journal-source">Alzheimer's research & therapy</p>
+          <p>FKBP51 抑制劑 SAFit2 能改善濤蛋白病變小鼠的病理特徵與認知功能，為濤蛋白相關失智症提供潛在治療靶點。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">濤蛋白</span><span class="tag">藥物治療</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42251444/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🤖</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>機器學習與深度學習用於神經疾病分析：五大疾病之系統性文獻回顧</h3>
+          <p class="journal-source">Neuroscience</p>
+          <p>系統性回顧探討機器學習與深度學習在五大神經疾病（含失智症）分析中的應用現況與挑戰。</p>
+          <div class="card-footer">
+            <span class="tag">認知評估</span><span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250854/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🖥️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>級聯深度學習實現阿茲海默症多模態腦部 PET 空間正規化與定量分析</h3>
+          <p class="journal-source">NeuroImage</p>
+          <p>開發級聯深度學習架構以實現阿茲海默症多模態腦部 PET 影像的自動空間正規化與精确定量。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">神經影像</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250835/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">⚡</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>菸醯胺核苷酸轉氫酶缺乏透過能量代謝失調損害阿茲海默症神經元功能</h3>
+          <p class="journal-source">Free radical biology & medicine</p>
+          <p>菸醯胺核苷酸轉氫酶（NNT）缺乏會導致能量代謝失調，進而損害阿茲海默症中的神經元功能。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">神經發炎</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250783/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧪</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>ATOX1 缺乏透過促進銅死亡誘發阿茲海默症記憶障礙</h3>
+          <p class="journal-source">Journal of advanced research</p>
+          <p>ATOX1 缺乏會透過促進銅死亡機制導致阿茲海默症中的記憶功能受損。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250721/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">💻</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>STING 抑制劑 H-151 非共價結合 cGAMP 結合口袋的特性分析</h3>
+          <p class="journal-source">Computational biology and chemistry</p>
+          <p>以計算化學方法分析 STING 抑制劑 H-151 與 cGAMP 結合口袋的非共價鍵結特性。</p>
+          <div class="card-footer">
+            <span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250479/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌙</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>食慾素交叉點：老化大腦中睡眠覺醒障礙與阿茲海默症病理生成的雙向連結</h3>
+          <p class="journal-source">Sleep medicine</p>
+          <p>綜論探討食慾素系統在老化大腦中睡眠障礙與阿茲海默症病理之間雙向關聯的核心調節角色。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">睡眠</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250440/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧫</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>無標記電化學適體感測器實現神經絲輕鏈之超靈敏與特異性檢測</h3>
+          <p class="journal-source">Biosensors & bioelectronics</p>
+          <p>開發新型無標記電化學適體感測器，可超靈敏且特異性地檢測神經絲輕鏈（NfL）生物標記。</p>
+          <div class="card-footer">
+            <span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250351/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🐭</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>老化 APP 基因敲入小鼠內嗅皮質的空間編碼受損與神經元過度活躍</h3>
+          <p class="journal-source">Cell reports</p>
+          <p>老化 APP 基因敲入小鼠的內嗅皮質出現空間編碼受損與神經元過度活躍現象，模擬早期阿茲海默症病理。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250220/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧬</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>非編碼 RNA 與 BDNF 在神經退化性疾病中的分子交互作用：系統性文獻回顧</h3>
+          <p class="journal-source">Molecular biology reports</p>
+          <p>系統性回顧整理非編碼 RNA 與腦源性神經營養因子（BDNF）在神經退化性疾病中的調控網絡與交互作用。</p>
+          <div class="card-footer">
+            <span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250142/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🌿</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>甘草查爾酮 A 透過調節葡萄糖代謝、Aβ 負擔與神經發炎增強 APP/PS1 小鼠認知韌性</h3>
+          <p class="journal-source">GeroScience</p>
+          <p>甘草查爾酮 A 能透過多重途徑（改善糖代謝、減少 Aβ 沉積、抑制神經發炎）提升阿茲海默症小鼠模型的認知韌性。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">類澱粉蛋白</span><span class="tag">神經發炎</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250112/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📊</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>阿茲海默症生物標記辨識的體學驅動策略</h3>
+          <p class="journal-source">Metabolic brain disease</p>
+          <p>綜論探讨利用基因體學、蛋白質體學、代謝體學等多層次體學方法識別阿茲海默症生物標記的策略與進展。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250049/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📖</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>促進唐氏症研究卓越發展：第屆三體21研究學會國際會議論文集</h3>
+          <p class="journal-source">Neuromolecular medicine</p>
+          <p>第五屆三體21研究學會國際會議論文集，涵蓋唐氏症相關研究進展，包含早發性阿茲海默症之探討。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250043/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>miR-125b 介導阿茲海默症細胞模型中濤蛋白誘發的粒線體功能障礙</h3>
+          <p class="journal-source">Molecular neurobiology</p>
+          <p>miR-125b 在阿茲海默症細胞模型中介導濤蛋白引發的粒線體功能障礙，揭示濤蛋白病理的新機制。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">濤蛋白</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250013/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🕸️</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>利用網路中心性指標進行失智症早期檢測</h3>
+          <p class="journal-source">Neuropsychologia</p>
+          <p>運用腦網路中心性指標作為失智症早期檢測的工具，展現優於傳統方法的早期辨識能力。</p>
+          <div class="card-footer">
+            <span class="tag">失智症篩檢</span><span class="tag">認知評估</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250748/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🐀</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>多發性腦梗塞失智症動物模型：方法學、神經病理、功能結果與轉譯相關性</h3>
+          <p class="journal-source">Experimental neurology</p>
+          <p>系統性回顧多發性腦梗塞失智症動物模型的方法學、病理特徵與轉譯應用價值。</p>
+          <div class="card-footer">
+            <span class="tag">血管性失智症</span><span class="tag">神經科學</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250678/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🎯</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>小膠細胞 PICALM：血管性失智症的新型遺傳驅動因子與治療目標</h3>
+          <p class="journal-source">Archives of gerontology and geriatrics</p>
+          <p>小膠細胞中的 PICALM 基因被鑑定為血管性失智症的新遺傳驅動因子，具有潛在治療標靶價值。</p>
+          <div class="card-footer">
+            <span class="tag">血管性失智症</span><span class="tag">神經發炎</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42250393/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🏛️</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>提托諾斯神話：古希臘思想中的老化與失智症</h3>
+          <p class="journal-source">Journal of geriatric psychiatry and neurology</p>
+          <p>從歷史觀點探討古希臘神話與哲學中對老化與失智症的認知與描述。</p>
+          <div class="card-footer">
+            <span class="tag">失智症照護</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249784/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🐕</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>影響社區照護環境中失智症動物輔助介入實施的因素：質性研究</h3>
+          <p class="journal-source">Journal of clinical nursing</p>
+          <p>質性研究探討社區照護場域中推動失智症動物輔助介入的促進與阻礙因素。</p>
+          <div class="card-footer">
+            <span class="tag">失智症照護</span><span class="tag">非藥物治療</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/41943211/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🔬</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>金屬蛋白酶在阿茲海默症與輕度認知障礙患者中的系統性文獻回顧與薈萃分析</h3>
+          <p class="journal-source">Journal of Alzheimer's disease : JAD</p>
+          <p>針對金屬蛋白酶在阿茲海默症與輕度認知障礙中的表現進行系統性回顧與薈萃分析，評估其生物標記潛力。</p>
+          <div class="card-footer">
+            <span class="tag">阿茲海默症</span><span class="tag">輕度認知障礙</span><span class="tag">生物標記</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/42249968/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">阿茲海默症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">14</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">神經科學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:57%"></div></div>
+              <span class="topic-count">8</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">生物標記</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:36%"></div></div>
+              <span class="topic-count">5</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">預防</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:29%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">神經影像</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:29%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">失智症照護</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:29%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">血管性失智症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">睡眠</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">濤蛋白</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">認知評估</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:21%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">失智症篩檢</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">BPSD</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:7%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">照顧者</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:7%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">藥物治療</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">非藥物治療</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">輕度認知障礙</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:14%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">神經發炎</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:21%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">類澱粉蛋白</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:7%"></div></div>
+              <span class="topic-count">1</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">老年精神醫學</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:7%"></div></div>
+              <span class="topic-count">1</span>
+            </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">可修改風險因子</span><span class="keyword">失智症預防</span><span class="keyword">認知評估公平性</span><span class="keyword">照護模式</span><span class="keyword">影像鑑別診斷</span><span class="keyword">BPSD與疼痛</span><span class="keyword">生物標記</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">&rarr;</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報</span>
+        <span class="clinic-arrow">&rarr;</span>
+      </a>
+      <a href="https://buymeacoffee.com/CYlee" class="clinic-link" target="_blank">
+        <span class="clinic-icon">☕</span>
+        <span class="clinic-name">Buy Me a Coffee</span>
+        <span class="clinic-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：GLM-5-Turbo</span>
+    <span><a href="https://github.com/u8901006/dementia-research">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
