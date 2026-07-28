@@ -70,7 +70,7 @@ try {
   <p class="count">共 ${total} 期日報</p>
   <ul>${links}</ul>
   <footer>
-    <p>Powered by PubMed + Zhipu AI &middot; <a href="https://github.com/u8901006/dementia-research">GitHub</a></p>
+    <p>Powered by PubMed + NVIDIA AI &middot; <a href="https://github.com/u8901006/dementia-research">GitHub</a></p>
   </footer>
 </div>
 </body>
