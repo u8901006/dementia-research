@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /**
- * Generate dementia daily report HTML using Zhipu AI (GLM-5-Turbo).
+ * Generate dementia daily report HTML using the NVIDIA API.
  * Reads papers JSON, analyzes with AI, generates styled HTML.
- * Fallback: GLM-5-Turbo → GLM-4.7 → GLM-4.7-Flash
+ * Model: nvidia/nemotron-3-super-120b-a12b
  */
 
 import {
@@ -14,10 +14,12 @@ import {
 import { join, dirname } from "path";
 
 const API_BASE =
-  process.env.ZHIPU_API_BASE ||
-  "https://open.bigmodel.cn/api/coding/paas/v4";
-const FALLBACK_MODELS = ["GLM-5-Turbo", "GLM-4.7", "GLM-4.7-Flash"];
-const MAX_TOKENS = 50000;
+  process.env.NVIDIA_API_BASE ||
+  "https://integrate.api.nvidia.com/v1";
+const FALLBACK_MODELS = [
+  process.env.NVIDIA_MODEL || "nvidia/nemotron-3-super-120b-a12b",
+];
+const MAX_TOKENS = 16384;
 const TIMEOUT_MS = 660000;
 const MAX_RETRIES = 1;
 
@@ -162,9 +164,10 @@ ${papersText}
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: prompt },
           ],
-          temperature: 0.3,
-          top_p: 0.9,
+          temperature: 1.0,
+          top_p: 0.95,
           max_tokens: MAX_TOKENS,
+          reasoning_effort: "none",
         };
 
         const controller = new AbortController();
@@ -258,7 +261,7 @@ function generateHTML(analysis) {
   const allPapers = analysis.all_papers || [];
   const keywords = analysis.keywords || [];
   const topicDist = analysis.topic_distribution || {};
-  const usedModel = analysis._model || "GLM-5-Turbo";
+  const usedModel = analysis._model || FALLBACK_MODELS[0];
 
   let topPicksHTML = "";
   for (const pick of topPicks) {
@@ -434,7 +437,7 @@ function generateHTML(analysis) {
       <div class="header-meta">
         <span class="badge badge-date">📅 ${dateDisplay}</span>
         <span class="badge badge-count">📊 ${totalCount} 篇文獻</span>
-        <span class="badge badge-source">Powered by PubMed + Zhipu AI</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
       </div>
     </div>
   </header>
@@ -511,7 +514,7 @@ async function main() {
   const args = process.argv.slice(2);
   let inputFile = "papers.json";
   let outputFile = "";
-  let apiKey = process.env.ZHIPU_API_KEY || "";
+  let apiKey = process.env.NVIDIA_API_KEY || "";
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--input" && args[i + 1]) inputFile = args[++i];
@@ -521,7 +524,7 @@ async function main() {
 
   if (!apiKey) {
     console.error(
-      "[ERROR] No API key. Set ZHIPU_API_KEY env var or use --api-key",
+      "[ERROR] No API key. Set NVIDIA_API_KEY env var or use --api-key",
     );
     process.exit(1);
   }
