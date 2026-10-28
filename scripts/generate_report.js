@@ -16,9 +16,7 @@ import { join, dirname } from "path";
 const API_BASE =
   process.env.NVIDIA_API_BASE ||
   "https://integrate.api.nvidia.com/v1";
-const FALLBACK_MODELS = [
-  process.env.NVIDIA_MODEL || "nvidia/nemotron-3-super-120b-a12b",
-];
+const FALLBACK_MODELS = (process.env.NVIDIA_MODELS || "nvidia/nemotron-3.5-lightning-30b-a3b,deepseek-ai/deepseek-v4.1-flash").split(",").map(s => s.trim()).filter(Boolean);
 const MAX_TOKENS = 16384;
 const TIMEOUT_MS = 660000;
 const MAX_RETRIES = 1;
