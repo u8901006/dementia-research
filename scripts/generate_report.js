@@ -2,7 +2,7 @@
 /**
  * Generate dementia daily report HTML using the NVIDIA API.
  * Reads papers JSON, analyzes with AI, generates styled HTML.
- * Model: nvidia/nemotron-3-super-120b-a12b
+ * Model: configured via NVIDIA_MODELS (Lightning default)
  */
 
 import {
@@ -165,7 +165,7 @@ ${papersText}
           temperature: 1.0,
           top_p: 0.95,
           max_tokens: MAX_TOKENS,
-          reasoning_effort: "none",
+          chat_template_kwargs: { enable_thinking: false },
         };
 
         const controller = new AbortController();
