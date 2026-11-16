@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dementia Research &middot; 失智症研究文獻日報 &middot; 2026年11月17日</title>
+<meta name="description" content="2026年11月17日 失智症研究文獻日報，由 AI 自動彙整 PubMed 最新論文"/>
+<style>
+  :root { --bg: #f6f1e8; --surface: #fffaf2; --line: #d8c5ab; --text: #2b2118; --muted: #766453; --accent: #8c4f2b; --accent-soft: #ead2bf; --card-bg: color-mix(in srgb, var(--surface) 92%, white); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: radial-gradient(circle at top, #fff6ea 0, var(--bg) 55%, #ead8c6 100%); color: var(--text); font-family: "Noto Sans TC", "PingFang TC", "Helvetica Neue", Arial, sans-serif; min-height: 100vh; overflow-x: hidden; }
+  .container { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; padding: 60px 32px 80px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; animation: fadeDown 0.6s ease both; }
+  .logo { width: 48px; height: 48px; border-radius: 14px; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; box-shadow: 0 4px 20px rgba(140,79,43,0.25); }
+  .header-text h1 { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; }
+  .header-meta { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; letter-spacing: 0.3px; }
+  .badge-date { background: var(--accent-soft); border: 1px solid var(--line); color: var(--accent); }
+  .badge-count { background: rgba(140,79,43,0.06); border: 1px solid var(--line); color: var(--muted); }
+  .badge-source { background: transparent; color: var(--muted); font-size: 11px; padding: 0 4px; }
+  .summary-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 28px 32px; margin-bottom: 32px; box-shadow: 0 20px 60px rgba(61,36,15,0.06); animation: fadeUp 0.5s ease 0.1s both; }
+  .summary-card h2 { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.6px; color: var(--accent); margin-bottom: 16px; }
+  .summary-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+  .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .section-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; background: var(--accent-soft); }
+  .news-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; padding: 22px 26px; margin-bottom: 12px; box-shadow: 0 8px 30px rgba(61,36,15,0.04); transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+  .news-card:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .news-card.featured { border-left: 3px solid var(--accent); }
+  .news-card.featured:hover { border-color: var(--accent); }
+  .card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .rank-badge { background: var(--accent); color: #fff7f0; font-weight: 700; font-size: 12px; padding: 2px 8px; border-radius: 6px; }
+  .emoji-icon { font-size: 18px; }
+  .card-header-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .emoji-sm { font-size: 14px; }
+  .news-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.5; }
+  .journal-source { font-size: 12px; color: var(--accent); margin-bottom: 8px; opacity: 0.8; }
+  .news-card p { font-size: 13.5px; line-height: 1.75; color: var(--muted); }
+  .card-footer { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .tag { padding: 2px 9px; background: var(--accent-soft); border-radius: 999px; font-size: 11px; color: var(--accent); }
+  .news-card a { font-size: 12px; color: var(--accent); text-decoration: none; opacity: 0.7; margin-left: auto; }
+  .news-card a:hover { opacity: 1; }
+  .utility-high { color: #5a7a3a; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(90,122,58,0.1); border-radius: 4px; }
+  .utility-mid { color: #9f7a2e; font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(159,122,46,0.1); border-radius: 4px; }
+  .utility-low { color: var(--muted); font-size: 11px; font-weight: 600; padding: 2px 8px; background: rgba(118,100,83,0.08); border-radius: 4px; }
+  .utility-sm { font-size: 10px; }
+  .pico-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; padding: 12px; background: rgba(255,253,249,0.8); border-radius: 14px; border: 1px solid var(--line); }
+  .pico-item { display: flex; gap: 8px; align-items: baseline; }
+  .pico-label { font-size: 10px; font-weight: 700; color: #fff7f0; background: var(--accent); padding: 2px 6px; border-radius: 4px; flex-shrink: 0; }
+  .pico-text { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .keywords-section { margin-bottom: 36px; }
+  .keywords { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .keyword { padding: 5px 14px; background: var(--accent-soft); border: 1px solid var(--line); border-radius: 20px; font-size: 12px; color: var(--accent); cursor: default; transition: background 0.2s; }
+  .keyword:hover { background: rgba(140,79,43,0.18); }
+  .topic-section { margin-bottom: 36px; }
+  .topic-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .topic-name { font-size: 13px; color: var(--muted); width: 110px; flex-shrink: 0; text-align: right; }
+  .topic-bar-bg { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .topic-bar { height: 100%; background: linear-gradient(90deg, var(--accent), #c47a4a); border-radius: 4px; transition: width 0.6s ease; }
+  .topic-count { font-size: 12px; color: var(--accent); width: 24px; }
+  .clinic-banner { margin-top: 48px; animation: fadeUp 0.5s ease 0.4s both; }
+  .clinic-links { display: flex; flex-direction: column; gap: 12px; }
+  .clinic-link { display: flex; align-items: center; gap: 14px; padding: 18px 24px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 24px; text-decoration: none; color: var(--text); transition: all 0.2s; box-shadow: 0 8px 30px rgba(61,36,15,0.04); }
+  .clinic-link:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(61,36,15,0.08); }
+  .clinic-icon { font-size: 28px; flex-shrink: 0; }
+  .clinic-name { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+  .clinic-arrow { font-size: 18px; color: var(--accent); font-weight: 700; }
+  footer { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); display: flex; justify-content: space-between; animation: fadeUp 0.5s ease 0.5s both; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  @media (max-width: 600px) { .container { padding: 36px 18px 60px; } .summary-card, .news-card { padding: 20px 18px; } .pico-grid { grid-template-columns: 1fr; } footer { flex-direction: column; gap: 6px; text-align: center; } .topic-name { width: 70px; font-size: 11px; } .clinic-links { gap: 8px; } .clinic-link { padding: 14px 18px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">🧠</div>
+    <div class="header-text">
+      <h1>Dementia Research &middot; 失智症研究文獻日報</h1>
+      <div class="header-meta">
+        <span class="badge badge-date">📅 2026年11月17日</span>
+        <span class="badge badge-count">📊 10 篇文獻</span>
+        <span class="badge badge-source">Powered by PubMed + NVIDIA AI</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="summary-card">
+    <h2>📋 今日文獻趨勢</h2>
+    <p class="summary-text">本日文獻聚焦於認知衰減早期檢測、疾病機轉生物標誌物以及非傳統治療方向（如腸腦軸、基因調節）。其中以空間導航缺損機制、乳糖核苷調控神經炎症、以及淋巴系內皮細胞缺失對阿茲海默症病理之保護效應作為亮點，反映了從單純藥物治療轉向多維度介入與機轉精準醫學的趨勢。</p>
+  </div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">⭐</span>今日精選 TOP Picks</div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#1</span>
+            <span class="emoji-icon">🧭</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>失智症空間導航缺損之病理機制與臨床介入綜述</h3>
+          <p class="journal-source">Neuroscience and biobehavioral reviews &middot; The disrupted navigational compass: pathophysiological mechanisms and clinical interventions for spatial navigation deficits.</p>
+          <p>探討空間導航缺損在失智症早期的病理機制，並總結認知復健與臨床介入策略，為早期識別與非藥物治療提供理論依據。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">失智症患者及高危族群</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">認知復健、臨床介入策略</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">未接受介入者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">改善空間導航能力與認知功能穩定性</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">認知評估</span><span class="tag">空間導航</span><span class="tag">認知復健</span><span class="tag">失智症照護</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43035211/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#2</span>
+            <span class="emoji-icon">🧬</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>CD22缺失對小鼠阿茲海默症病理之保護效應</h3>
+          <p class="journal-source">The EMBO journal &middot; CD22 loss enhances phagocytosis in myeloid cells and ameliorates Alzheimer's disease-like pathology in mice.</p>
+          <p>發現CD22在髓系細胞中抑制吞噬作用，其缺失可增強清除類澱粉蛋白，顯示出作為新型免疫治療目標的潛力。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">小鼠模型（阿茲海默症病理）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">CD22基因缺失/抑制</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">野生型對照</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">減少類澱粉蛋白堆積、改善認知功能</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">類澱粉蛋白</span><span class="tag">免疫治療</span><span class="tag">基因調節</span><span class="tag">神經發炎</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43035584/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#3</span>
+            <span class="emoji-icon">🔬</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>TESC增強子活性調節下的rs7315280變異與認知衰減保護</h3>
+          <p class="journal-source">Neurological sciences &middot; Protective effects of rs7315280 on hippocampal volume and cognitive decline in aging by its enhancer activity regulating TESC expression.</p>
+          <p>關聯研究發現rs7315280變異通過調節TESC表達，對髓質體積與老年認知衰減具有保護效應，提供了遺傳風險評估的新指標。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">老年族群</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">遺傳變異(rs7315280)</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">非該變異携帶者</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">維持髓質體積、延緩認知衰減</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">遺傳風險</span><span class="tag">生物標誌</span><span class="tag">髓質體積</span><span class="tag">老化</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43035561/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#4</span>
+            <span class="emoji-icon">🥛</span>
+            <span class="utility-mid">中實用性</span>
+          </div>
+          <h3>腸腦軸調節下乳糖核苷對神經炎症之潛在作用</h3>
+          <p class="journal-source">Nutritional neuroscience &middot; Human milk oligosaccharides as immunomodulators of the gut-immune-brain axis: a potential route to suppressing neuroinflammation in Alzheimer's disease.</p>
+          <p>系統綜述指出人乳寡糖作為免疫調節劑，透過腸-免疫-腦軸可能抑制阿茲海默症患者的神經炎症，提供非藥物預防方向。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">阿茲海默症風險或患者</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">人乳寡糖攝取</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">標準飲食或安慰劑</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">抑制神經炎症、改善腸道免疫環境</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">預防</span><span class="tag">腸腦軸</span><span class="tag">神經發炎</span><span class="tag">生活方式</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43037079/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card featured">
+          <div class="card-header">
+            <span class="rank-badge">#5</span>
+            <span class="emoji-icon">📊</span>
+            <span class="utility-high">高實用性</span>
+          </div>
+          <h3>輕度認知障礙早期空間導航功能之變異分析</h3>
+          <p class="journal-source">Journal of clinical and experimental neuropsychology &middot; Comparing multivariate cognitive change in unimpaired older adults to those with questionable impairment or mild dementia: a NACC study.</p>
+          <p>NACC隊列研究比較 unimpaired 與 questionable impairment 或輕度痴呆者之認知變化軌跡，闡明早期認知衰減的多維度光譜。</p>
+          
+            <div class="pico-grid">
+              <div class="pico-item"><span class="pico-label">P</span><span class="pico-text">老年人（ unimpaired 與 questionable impairment / mild dementia）</span></div>
+              <div class="pico-item"><span class="pico-label">I</span><span class="pico-text">無（觀察性研究}</span></div>
+              <div class="pico-item"><span class="pico-label">C</span><span class="pico-text">不同認知狀態分組</span></div>
+              <div class="pico-item"><span class="pico-label">O</span><span class="pico-text">識別認知衰減早期光譜與多維變異模式</span></div>
+            </div>
+          <div class="card-footer">
+            <span class="tag">認知評估</span><span class="tag">早期識別</span><span class="tag">NACC</span><span class="tag">多維認知</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43037353/" target="_blank">閱讀原文 &rarr;</a>
+          </div>
+        </div></div>
+
+  <div class="section"><div class="section-title"><span class="section-icon">📚</span>其他值得關注的文獻</div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧠</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>焦慮在輕度認知障礙中的神經影像綜述</h3>
+          <p class="journal-source">International journal of general medicine</p>
+          <p>整合結構、功能、分子與網絡視角，闡述輕度認知障礙中焦慮之神經影像特徵與機轉，提升對共病管理的認知。</p>
+          <div class="card-footer">
+            <span class="tag">神經影像</span><span class="tag">焦慮</span><span class="tag">輕度認知障礙</span><span class="tag">機轉</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43036617/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🏥</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>類澱粉蛋白相關性腦血管炎臨床謬誤與治療細微差異綜述</h3>
+          <p class="journal-source">Case reports in neurological medicine</p>
+          <p>通過個案報告與文獻綜述，點出類澱粉蛋白相關性腦血管炎之診斷挑戰與治療細微差異，提升罕見疾病臨床處理能力。</p>
+          <div class="card-footer">
+            <span class="tag">類澱粉蛋白</span><span class="tag">血管炎</span><span class="tag">病例報告</span><span class="tag">罕見疾病</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43036600/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🧬</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>中樞神經疾病重組型基因治療綜述</h3>
+          <p class="journal-source">Human gene therapy</p>
+          <p>回顧AAV基因治療在中樞神經系統疾病中的發展，從基因替代進展到精準編輯與電路調節，展現了未來基因醫學的前沿方向。</p>
+          <div class="card-footer">
+            <span class="tag">基因治療</span><span class="tag">精準編輯</span><span class="tag">電路調節</span><span class="tag">前沿科技</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43035828/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">📈</span>
+            <span class="utility-low utility-sm">低</span>
+          </div>
+          <h3>自動化分析平台下腦脊髓液白蛋白與總蛋白比值比較</h3>
+          <p class="journal-source">Clinical chemistry and laboratory medicine</p>
+          <p>比較不同自動化分析平台下腦脊髓液白蛋白與總蛋白比值，對蛛網膜下腔出血之診斷具有啟示意義，展現了檢體標準化的重要性。</p>
+          <div class="card-footer">
+            <span class="tag">腦脊髓液</span><span class="tag">白蛋白比值</span><span class="tag">自動化分析</span><span class="tag">蛛網膜下腔出血</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43037516/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="card-header-row">
+            <span class="emoji-sm">🍩</span>
+            <span class="utility-mid utility-sm">中</span>
+          </div>
+          <h3>認知障礙風險與糖攝取之系統評論與meta分析</h3>
+          <p class="journal-source">Nutrition reviews</p>
+          <p>系統性回顧與Meta分析指出高糖攝取與認知障礙風險顯著相關，強化了飲食控糖在認知健康預防中的重要性。</p>
+          <div class="card-footer">
+            <span class="tag">預防</span><span class="tag">飲食</span><span class="tag">糖攝取</span><span class="tag">認知障礙</span>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/43034993/" target="_blank">PubMed &rarr;</a>
+          </div>
+        </div></div>
+
+  <div class="topic-section section"><div class="section-title"><span class="section-icon">📊</span>主題分佈</div>
+            <div class="topic-row">
+              <span class="topic-name">阿茲海默症</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:100%"></div></div>
+              <span class="topic-count">5</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">認知評估</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:80%"></div></div>
+              <span class="topic-count">4</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">預防</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:60%"></div></div>
+              <span class="topic-count">3</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">神經影像</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">免疫治療</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">生活方式</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+              <span class="topic-count">2</span>
+            </div>
+            <div class="topic-row">
+              <span class="topic-name">類澱粉蛋白</span>
+              <div class="topic-bar-bg"><div class="topic-bar" style="width:40%"></div></div>
+              <span class="topic-count">2</span>
+            </div></div>
+
+  <div class="keywords-section section"><div class="section-title"><span class="section-icon">🏷️</span>關鍵字</div><div class="keywords"><span class="keyword">阿茲海默症</span><span class="keyword">認知衰減</span><span class="keyword">生物標誌</span><span class="keyword">腸腦軸</span><span class="keyword">免疫治療</span><span class="keyword">空間導航</span><span class="keyword">遺傳風險</span><span class="keyword">非藥物治療</span></div></div>
+
+  <div class="clinic-banner">
+    <div class="clinic-links">
+      <a href="https://www.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">🏥</span>
+        <span class="clinic-name">李政洋身心診所首頁</span>
+        <span class="clinic-arrow">&rarr;</span>
+      </a>
+      <a href="https://blog.leepsyclinic.com/" class="clinic-link" target="_blank">
+        <span class="clinic-icon">📬</span>
+        <span class="clinic-name">訂閱電子報</span>
+        <span class="clinic-arrow">&rarr;</span>
+      </a>
+      <a href="https://buymeacoffee.com/CYlee" class="clinic-link" target="_blank">
+        <span class="clinic-icon">☕</span>
+        <span class="clinic-name">Buy Me a Coffee</span>
+        <span class="clinic-arrow">&rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    <span>資料來源：PubMed &middot; 分析模型：nvidia/nemotron-3.5-lightning-30b-a3b</span>
+    <span><a href="https://github.com/u8901006/dementia-research">GitHub</a></span>
+  </footer>
+</div>
+</body>
+</html>
